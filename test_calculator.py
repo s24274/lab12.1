@@ -1,19 +1,21 @@
-import sys
+import unittest
+from calculator import multiply
 
-def multiply(a, b):
-    return a * b
+class TestCalculator(unittest.TestCase):
 
-if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        print("Usage: python calculator.py <num1> <num2>")
-        sys.exit(1)
+    def test_multiply_positive_numbers(self):
+        self.assertEqual(multiply(3, 4), 12)
 
-    try:
-        num1 = float(sys.argv[1])
-        num2 = float(sys.argv[2])
-    except ValueError:
-        print("Please provide two valid numbers.")
-        sys.exit(1)
+    def test_multiply_negative_numbers(self):
+        self.assertEqual(multiply(-1, -1), 1)
 
-    result = multiply(num1, num2)
-    print(f"The result of {num1} * {num2} is {result}")
+    def test_multiply_positive_and_negative(self):
+        self.assertEqual(multiply(5, -2), -10)
+
+    def test_multiply_with_zero(self):
+        self.assertEqual(multiply(0, 5), 0)
+        self.assertEqual(multiply(5, 0), 0)
+
+if __name__ == '__main__':
+    unittest.main()
+
